@@ -49,7 +49,7 @@ useEffect(() => {
           <div className="flex min-w-0 items-center gap-3">
           <div className="relative h-14 w-14 shrink-0 sm:h-16 sm:w-16">
               <Image
-              src="/images/twd-logo.png"
+              src="/images/twd-logo1.png"
               alt="Tanza Water District official logo"
               fill
               sizes="64px"
