@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -67,31 +67,40 @@ export default function SignupPage() {
   function handleGoogleLogin(event: React.MouseEvent<HTMLButtonElement>): void {
     event.preventDefault();
     setError("Google sign-in is not configured yet.");
-  }
+  } 
 
-  return (
-  <div className="h-dvh w-full overflow-hidden bg-white text-slate-800">
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
+return (
+  <div className="min-h-dvh w-full bg-white text-slate-800">
 
     {/* MAIN SIGN UP PAGE */}
-    <main className="flex h-full w-full items-center justify-center min-[640px]:bg-[#F3F6FB] overflow-hidden p-3 sm:p-5 lg:p-6">
+    <main className="flex min-h-dvh w-full items-start justify-center bg-white p-0 min-[640px]:items-center min-[640px]:bg-[#F3F6FB] min-[640px]:p-4 lg:p-6">
 
       {/* MAIN WHITE CONTAINER */}
-      <div className="grid h-full min-[760px]:max-h-[760px] max-[640px]:min-h-[calc(100dvh-2rem)] w-full max-w-6xl grid-cols-1 overflow-hidden min-[640px]:border min-[640px]:border-slate-200 bg-white min-[640px]:shadow-md md:h-dvh md:min-h-0 min-[768px]:grid-cols-[1.2fr_0.8fr]">
-    
+      <div className="grid min-h-dvh w-full max-w-6xl grid-cols-1 overflow-visible bg-white min-[640px]:min-h-0 min-[640px]:border min-[640px]:border-slate-200 min-[640px]:shadow-md min-[768px]:h-[min(760px,calc(100dvh-48px))] min-[768px]:min-h-[650px] min-[768px]:grid-cols-[1.2fr_0.8fr] min-[768px]:overflow-hidden">
+
         {/* ===================================================== */}
         {/* LEFT SIDE - SIGN UP SECTION */}
         {/* ===================================================== */}
 
-       
-      {/* SIGN UP FORM SECTION */}
-      <section className="relative my-4 flex h-auto w-full min-w-0 items-start justify-center overflow-x-hidden overflow-y-auto px-4 py-6 sm:my-0 sm:h-full sm:min-h-0 sm:items-center sm:px-8 sm:py-5 lg:px-10">
-      {/* Decorative Corner */}
-        <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 rounded-bl-full bg-[#00A6D6]/10" />
-          {/* BACK BUTTON */}
+        <div className="flex min-h-dvh flex-col min-[640px]:min-h-0 min-[768px]:h-full">
+
+          {/* SIGN UP FORM SECTION */}
+          <section className="relative flex w-full flex-1 flex-col items-center overflow-visible px-5 pb-8 pt-20 sm:px-8 sm:pt-20 lg:px-10 min-[768px]:min-h-0 min-[768px]:overflow-y-auto min-[768px]:overscroll-contain">
+
+            {/* DECORATIVE CORNER */}
+            <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 rounded-bl-full bg-[#00A6D6]/10" />
+
+            {/* BACK BUTTON */}
             <button
               type="button"
               onClick={() => router.push("/")}
-              className="absolute left-0 top-0 z-20 flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-[#123D73] transition hover:bg-[#123D73]/10 sm:left-8 sm:top-5 lg:left-10"
+              className="absolute left-4 top-4 z-20 flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-[#123D73] transition hover:bg-[#123D73]/10 sm:left-6 sm:top-5 lg:left-8"
             >
               <svg
                 className="h-5 w-5"
@@ -109,107 +118,105 @@ export default function SignupPage() {
               Back
             </button>
 
-          <div className="relative z-10 w-full max-w-xl">
+            {/* FORM CONTENT */}
+            <div className="relative z-10 my-auto w-full max-w-xl">
 
-            {/* Logo - Small Screen */}
-            <div className="mt-4 mb-9 flex flex-col items-center min-[770px]:hidden">
-                    
-              {/* LOGO AND TITLE */}
-              <div className="flex items-center justify-center gap-4">
-    
-                {/* LOGO */}
-                <div className="relative h-20 w-20 shrink-0">
-                  <Image
-                    src="/images/districtlens-logo7.png"
-                    alt="DistrictLens Logo"
-                    fill
-                    priority
-                    sizes="80px"
-                    className="object-contain"
-                  />
+              {/* LOGO - MOBILE */}
+              <div className="mb-8 mt-2 flex flex-col items-center min-[770px]:hidden">
+
+                <div className="flex items-center justify-center gap-4">
+
+                  {/* LOGO */}
+                  <div className="relative h-20 w-20 shrink-0">
+                    <Image
+                      src="/images/districtlens-logo7.png"
+                      alt="DistrictLens Logo"
+                      fill
+                      priority
+                      sizes="80px"
+                      className="object-contain"
+                    />
+                  </div>
+
+                  {/* DIVIDER */}
+                  <div className="h-14 w-px bg-slate-200" />
+
+                  {/* BRAND NAME */}
+                  <div className="flex flex-col">
+                    <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
+                      <span className="text-[#123D73]">District</span>
+                      <span className="text-[#00A6D6]">Lens</span>
+                    </h1>
+
+                    <p className="mt-1 text-[10px] font-bold tracking-[0.2em] text-slate-400">
+                      AUTHORIZED PERSONNEL
+                    </p>
+                  </div>
+
                 </div>
-    
-                {/* DIVIDER */}
-                <div className="h-14 w-px bg-slate-200" />
-    
-                {/* BRAND NAME */}
-                <div className="flex flex-col">
-                  <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
-                    <span className="text-[#123D73]">District</span>
-                    <span className="text-[#00A6D6]">Lens</span>
-                  </h1>
-    
-                  <p className="mt-1 text-[10px] font-bold tracking-[0.2em] text-slate-400">
-                    AUTHORIZED PERSONNEL
-                  </p>
-                </div>
-    
-              </div>
-      
+
                 {/* DESCRIPTION */}
                 <p className="mt-5 max-w-sm text-center text-sm leading-6 text-slate-500">
                   Operations Dashboard and Incident Monitoring System
                 </p>
-      
+
               </div>
 
-            {/* FORM HEADER */}
-            <div className="mb-5 text-center sm:text-left">
-              <h1 className="text-2xl font-bold tracking-tight text-[#123D73] sm:text-3xl">
-                Create an Account
-              </h1>
+              {/* FORM HEADER */}
+              <div className="mb-5 text-center sm:text-left">
+                <h1 className="text-2xl font-bold tracking-tight text-[#123D73] sm:text-3xl">
+                  Create an Account
+                </h1>
 
-              <p className="mt-1 text-sm text-slate-500">
-                Sign up to access the DistrictLens portal.
-              </p>
-            </div>
+                <p className="mt-1 text-sm text-slate-500">
+                  Sign up to access the DistrictLens portal.
+                </p>
+              </div>
 
-            {/* GOOGLE SIGN UP */}
-            <button
-              type="button"
-              onClick={handleGoogleLogin}
-              className="cursor-pointer flex w-full items-center justify-center gap-3 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-            >
-              <svg
-                className="h-5 w-5"
-                viewBox="0 0 48 48"
-                xmlns="http://www.w3.org/2000/svg"
+              {/* GOOGLE SIGN UP */}
+              <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
               >
-                <path
-                  fill="#EA4335"
-                  d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z"
-                />
-                <path
-                  fill="#4285F4"
-                  d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.97 46.98 31.83 46.98 24.55Z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.87.93 7.52 2.56 10.78l7.97-6.19Z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.14 1.44-4.89 2.3-8.18 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48Z"
-                />
-              </svg>
+                {/* GOOGLE ICON */}
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 48 48"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="#EA4335"
+                    d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z"
+                  />
+                  <path
+                    fill="#4285F4"
+                    d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.97 46.98 31.83 46.98 24.55Z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.87.93 7.52 2.56 10.78l7.97-6.19Z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.14 1.44-4.89 2.3-8.18 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48Z"
+                  />
+                </svg>
 
-              Continue with Google
-            </button>
+                Sign up with Google
+              </button>
 
-            {/* DIVIDER */}
-            <div className="my-4 flex items-center gap-3">
-              <div className="h-px flex-1 bg-slate-200" />
-              <span className="text-xs font-medium text-slate-400">
-                OR SIGN UP WITH EMAIL
-              </span>
-              <div className="h-px flex-1 bg-slate-200" />
-            </div>
+              {/* DIVIDER */}
+              <div className="my-4 flex items-center gap-3">
+                <div className="h-px flex-1 bg-slate-200" />
+                <span className="text-xs font-medium text-slate-400">
+                  OR
+                </span>
+                <div className="h-px flex-1 bg-slate-200" />
+              </div>
 
-            {/* SIGN UP FORM */}
-            <form onSubmit={handleSignup} className="space-y-3">
-
-              {/* FULL NAME + USERNAME */}
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {/* SIGN UP FORM */}
+              <form onSubmit={handleSignup} className="space-y-3">
 
                 {/* FULL NAME */}
                 <div>
@@ -232,288 +239,221 @@ export default function SignupPage() {
                   />
                 </div>
 
-                {/* USERNAME */}
+                {/* EMAIL ADDRESS */}
                 <div>
                   <label
-                    htmlFor="username"
+                    htmlFor="email"
                     className="mb-1 block text-sm font-semibold text-slate-700"
                   >
-                    Username
+                    Email Address
                   </label>
 
                   <input
-                    id="username"
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Choose a username"
-                    autoComplete="username"
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    autoComplete="email"
                     required
                     className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#00A6D6] focus:ring-2 focus:ring-[#00A6D6]/20"
                   />
                 </div>
 
-              </div>
+                {/* PASSWORD AND CONFIRM PASSWORD */}
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
 
-              {/* EMAIL ADDRESS */}
-              <div>
-                <label
-                  htmlFor="email"
-                  className="mb-1 block text-sm font-semibold text-slate-700"
-                >
-                  Email Address
-                </label>
+                  {/* PASSWORD */}
+                  <div>
+                    <label
+                      htmlFor="password"
+                      className="mb-1 block text-sm font-semibold text-slate-700"
+                    >
+                      Password
+                    </label>
 
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email address"
-                  autoComplete="email"
-                  required
-                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#00A6D6] focus:ring-2 focus:ring-[#00A6D6]/20"
-                />
-              </div>
+                    <div className="relative">
+                      <input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Create a password"
+                        autoComplete="new-password"
+                        required
+                        className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pr-11 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#00A6D6] focus:ring-2 focus:ring-[#00A6D6]/20"
+                      />
 
-              {/* PASSWORD + CONFIRM PASSWORD */}
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-0 flex cursor-pointer items-center px-3 text-slate-400 transition hover:text-[#123D73]"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                      >
+                        {showPassword ? (
+                          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.8"
+                              d="M3 3l18 18M10.58 10.59a2 2 0 002.83 2.83M9.88 5.09A10.94 10.94 0 0112 4.87c5 0 9.27 3.11 11 7.13a11.8 11.8 0 01-3.04 4.13M6.61 6.61A11.8 11.8 0 001 12c.74 1.93 2.15 3.55 3.87 4.69"
+                            />
+                          </svg>
+                        ) : (
+                          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.8"
+                              d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"
+                            />
+                            <circle cx="12" cy="12" r="3" strokeWidth="1.8" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                  </div>
 
-                {/* PASSWORD */}
-                <div>
+                  {/* CONFIRM PASSWORD */}
+                  <div>
+                    <label
+                      htmlFor="confirmPassword"
+                      className="mb-1 block text-sm font-semibold text-slate-700"
+                    >
+                      Confirm Password
+                    </label>
+
+                    <div className="relative">
+                      <input
+                        id="confirmPassword"
+                        type={showConfirmPassword ? "text" : "password"}
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Confirm your password"
+                        autoComplete="new-password"
+                        required
+                        className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pr-11 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#00A6D6] focus:ring-2 focus:ring-[#00A6D6]/20"
+                      />
+
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute inset-y-0 right-0 flex cursor-pointer items-center px-3 text-slate-400 transition hover:text-[#123D73]"
+                        aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                      >
+                        {showConfirmPassword ? (
+                          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.8"
+                              d="M3 3l18 18M10.58 10.59a2 2 0 002.83 2.83M9.88 5.09A10.94 10.94 0 0112 4.87c5 0 9.27 3.11 11 7.13a11.8 11.8 0 01-3.04 4.13M6.61 6.61A11.8 11.8 0 001 12c.74 1.93 2.15 3.55 3.87 4.69"
+                            />
+                          </svg>
+                        ) : (
+                          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.8"
+                              d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"
+                            />
+                            <circle cx="12" cy="12" r="3" strokeWidth="1.8" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* AGREE TO TERMS */}
+                <div className="flex items-start gap-2 pt-1">
+                  <input
+                    id="agreeTerms"
+                    type="checkbox"
+                    checked={agreeTerms}
+                    onChange={(e) => setAgreeTerms(e.target.checked)}
+                    required
+                    className="mt-1 h-4 w-4 shrink-0 cursor-pointer rounded border-slate-300 accent-[#123D73] focus:ring-[#00A6D6]"
+                  />
+
                   <label
-                    htmlFor="password"
-                    className="mb-1 block text-sm font-semibold text-slate-700"
+                    htmlFor="agreeTerms"
+                    className="text-xs leading-relaxed text-slate-600 sm:text-sm"
                   >
-                    Password
-                  </label>
-
-                  <div className="relative">
-                    <input
-                      id="password"
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Create a password"
-                      autoComplete="new-password"
-                      required
-                      className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pr-11 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#00A6D6] focus:ring-2 focus:ring-[#00A6D6]/20"
-                    />
-
+                    I have read and agree to the{" "}
                     <button
                       type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="cursor-pointer absolute inset-y-0 right-0 flex items-center px-3 text-slate-400 transition hover:text-[#123D73]"
-                      aria-label={showPassword ? "Hide password" : "Show password"}
+                      onClick={() => setShowTerms(true)}
+                      className="cursor-pointer font-semibold text-[#123D73] underline underline-offset-2 hover:text-[#00A6D6]"
                     >
-                      {showPassword ? (
-                        <svg
-                          className="h-5 w-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.8"
-                            d="M3 3l18 18M10.58 10.59a2 2 0 002.83 2.83M9.88 5.09A10.94 10.94 0 0112 4.87c5 0 9.27 3.11 11 7.13a11.8 11.8 0 01-3.04 4.13M6.61 6.61A11.8 11.8 0 001 12c.74 1.93 2.15 3.55 3.87 4.69"
-                          />
-                        </svg>
-                      ) : (
-                        <svg
-                          className="h-5 w-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.8"
-                            d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"
-                          />
-                          <circle cx="12" cy="12" r="3" strokeWidth="1.8" />
-                        </svg>
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                {/* CONFIRM PASSWORD */}
-                <div>
-                  <label
-                    htmlFor="confirmPassword"
-                    className="mb-1 block text-sm font-semibold text-slate-700"
-                  >
-                    Confirm Password
-                  </label>
-
-                  <div className="relative">
-                    <input
-                      id="confirmPassword"
-                      type={showConfirmPassword ? "text" : "password"}
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="Confirm your password"
-                      autoComplete="new-password"
-                      required
-                      className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pr-11 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#00A6D6] focus:ring-2 focus:ring-[#00A6D6]/20"
-                    />
-
+                      Terms and Conditions
+                    </button>{" "}
+                    and{" "}
                     <button
                       type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="cursor-pointer absolute inset-y-0 right-0 flex items-center px-3 text-slate-400 transition hover:text-[#123D73]"
-                      aria-label={
-                        showConfirmPassword
-                          ? "Hide confirm password"
-                          : "Show confirm password"
-                      }
+                      onClick={() => setShowPrivacyInfo(true)}
+                      className="cursor-pointer font-semibold text-[#123D73] underline underline-offset-2 hover:text-[#00A6D6]"
                     >
-                      {showConfirmPassword ? (
-                        <svg
-                          className="h-5 w-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.8"
-                            d="M3 3l18 18M10.58 10.59a2 2 0 002.83 2.83M9.88 5.09A10.94 10.94 0 0112 4.87c5 0 9.27 3.11 11 7.13a11.8 11.8 0 01-3.04 4.13M6.61 6.61A11.8 11.8 0 001 12c.74 1.93 2.15 3.55 3.87 4.69"
-                          />
-                        </svg>
-                      ) : (
-                        <svg
-                          className="h-5 w-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.8"
-                            d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"
-                          />
-                          <circle cx="12" cy="12" r="3" strokeWidth="1.8" />
-                        </svg>
-                      )}
-                    </button>
+                      Privacy Policy
+                    </button>.
+                  </label>
+                </div>
+
+                {/* ERROR MESSAGE */}
+                {error && (
+                  <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">
+                    {error}
                   </div>
-                </div>
-              </div>
-
-              {/* AGREE TO TERMS */}
-              <div className="flex items-start gap-2 pt-1">
-                <input
-                  id="agreeTerms"
-                  type="checkbox"
-                  checked={agreeTerms}
-                  onChange={(e) => setAgreeTerms(e.target.checked)}
-                  required
-                  className="mt-1 h-4 w-4 shrink-0 cursor-pointer rounded border-slate-300 accent-[#123D73] focus:ring-[#00A6D6]"
-                />
-
-                <label
-                  htmlFor="agreeTerms"
-                  className="text-xs leading-relaxed text-slate-600 sm:text-sm"
-                >
-                  I have read and agree to the{" "}
-                  <button
-                    type="button"
-                    onClick={() => setShowTerms(true)}
-                    className="cursor-pointer font-semibold text-[#123D73] underline underline-offset-2 hover:text-[#00A6D6]"
-                  >
-                    Terms and Conditions
-                  </button>{" "}
-                  and{" "}
-                  <button
-                    type="button"
-                    onClick={() => setShowPrivacyInfo(true)}
-                    className="cursor-pointer font-semibold text-[#123D73] underline underline-offset-2 hover:text-[#00A6D6]"
-                  >
-                    Privacy Policy
-                  </button>
-                  .
-                </label>
-              </div>
-
-              {/* ERROR MESSAGE */}
-              {error && (
-                <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">
-                  {error}
-                </div>
-              )}
-
-              {/* SIGN UP BUTTON */}
-              <button
-                type="submit"
-                disabled={loading || !agreeTerms}
-                className="cursor-pointer flex w-full items-center justify-center rounded-lg bg-[#123D73] px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0d2f5a] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {loading ? (
-                  <>
-                    <svg
-                      className="mr-2 h-5 w-5 animate-spin"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                      />
-                    </svg>
-                    Creating Account...
-                  </>
-                ) : (
-                  "Sign Up"
                 )}
-              </button>
 
-            </form>
+                {/* SIGN UP BUTTON */}
+                <button
+                  type="submit"
+                  disabled={loading || !agreeTerms}
+                  className="flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#123D73] px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0d2f5a] disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {loading ? "Creating Account..." : "Sign Up"}
+                </button>
 
-            {/* LOGIN REDIRECT */}
-            <p className="mt-4 text-center text-sm text-slate-500">
-              Already have an account?{" "}
-              <button
-                type="button"
-                onClick={() => router.push("/")}
-                className="cursor-pointer font-semibold text-[#123D73] transition hover:text-[#00A6D6]"
-              >
-                Log In
-              </button>
+              </form>
+
+              {/* LOGIN REDIRECT */}
+              <div className="mt-4 text-center text-sm text-slate-500">
+                Already have an account?{" "}
+                <button
+                  type="button"
+                  onClick={() => router.push("/")}
+                  className="cursor-pointer font-semibold text-[#123D73] transition hover:text-[#00A6D6]"
+                >
+                  Log In
+                </button>
+              </div>
+
+            </div>
+          </section>
+
+          {/* FOOTER */}
+          <footer className="flex min-h-[70px] shrink-0 items-center justify-center">
+            <p className="text-center text-xs text-slate-500">
+              © {year} SerbisyON. All rights reserved.
             </p>
+          </footer>
 
-          </div>
+        </div>
 
-          
-        </section>
+        {/* ===================================================== */}
+        {/* RIGHT SIDE - BRANDING SECTION */}
+        {/* ===================================================== */}
 
+        <section className="relative hidden h-full min-h-0 flex-col items-center justify-center overflow-hidden border-l border-[#123D73]/20 bg-white px-8 py-10 text-center min-[768px]:flex">
 
-            {/* ===================================================== */}
-            {/* RIGHT SIDE - BRANDING SECTION */}
-            {/* ===================================================== */}
-
-        <section className="relative hidden h-full min-h-0 flex-col items-center justify-center overflow-hidden border-l border-[#123D73]/20 bg-white px-8 py-10 text-center min-[768px]:flex">      
           {/* TOP DECORATIVE CORNER */}
           <div className="absolute right-0 top-0 h-40 w-40 bg-[#123D73]/10 [clip-path:polygon(0_0,100%_0,100%_100%)]" />
 
-
           {/* LOGO */}
           <div className="relative mx-auto mb-5 h-36 w-36 sm:h-40 sm:w-40 lg:h-48 lg:w-48">
-
             <Image
               src="/images/districtlens-logo7.png"
               alt="DistrictLens Logo"
@@ -522,43 +462,26 @@ export default function SignupPage() {
               sizes="(max-width: 1024px) 160px, 192px"
               className="object-contain"
             />
-
           </div>
-
 
           {/* BRAND NAME */}
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
-
-            <span className="text-[#123D73]">
-              District
-            </span>
-
-            <span className="text-[#00A6D6]">
-              Lens
-            </span>
-
+            <span className="text-[#123D73]">District</span>
+            <span className="text-[#00A6D6]">Lens</span>
           </h1>
-
 
           {/* BRAND TAGLINE */}
           <p className="mt-6 text-base font-semibold tracking-wide text-[#123D73] lg:text-lg">
-
             Monitor
             <span className="mx-3 text-[#00A6D6]">╼</span>
-
             Report
             <span className="mx-3 text-[#00A6D6]">╼</span>
-
             Locate
-
           </p>
-
 
           {/* DESCRIPTION */}
           <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-500 lg:text-base">
-
             Operations Dashboard and Incident Monitoring System
-
           </p>
 
           {/* BOTTOM DECORATIVE CORNER */}
@@ -566,10 +489,9 @@ export default function SignupPage() {
 
         </section>
 
-        </div>
-      </main>
+      </div>
+    </main>
 
-//#region TERMS 
       {/*TERMS AND CONDITIONS MODAL */}
       {showTerms && (
         <div
@@ -605,7 +527,7 @@ export default function SignupPage() {
                 type="button"
                 onClick={() => setShowTerms(false)}
                 aria-label="Close terms and conditions"
-                className="ml-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
+                className="ml-3 flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
               >
                 <svg
                   className="h-5 w-5"
@@ -630,7 +552,7 @@ export default function SignupPage() {
               {/* INTRODUCTION */}
               <div className="mb-6">
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#00A6D6]">
-                  Effective Date: [Insert Date]
+                  Effective Date: {new Date().getFullYear()}
                 </p>
 
                 <h3 className="mb-2 text-base font-bold text-[#123D73]">
@@ -871,7 +793,7 @@ export default function SignupPage() {
               <button
                 type="button"
                 onClick={() => setShowTerms(false)}
-                className="rounded-lg bg-[#123D73] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0d2f5a]"
+                className="cursor-pointer rounded-lg bg-[#123D73] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0d2f5a]"
               >
                 Close
               </button>
@@ -881,9 +803,6 @@ export default function SignupPage() {
         </div>
       )}
 
-//#endregion
-
-//#region Privacy Policy Modal
 {/* PRIVACY POLICY MODAL */}
           {showPrivacyInfo && (
             <div
@@ -917,7 +836,7 @@ export default function SignupPage() {
                     type="button"
                     onClick={() => setShowPrivacyInfo(false)}
                     aria-label="Close privacy information"
-                    className="ml-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
+                    className="ml-3 flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
                   >
                     <svg
                       className="h-5 w-5"
@@ -1183,10 +1102,22 @@ export default function SignupPage() {
                       Questions or Privacy Concerns?
                     </h4>
 
-                    <p className="text-xs leading-6 text-slate-600">
-                      For questions regarding your personal information or account
-                      authorization, please contact Tanza Water District through its
-                      official communication channels.
+                    <p className="text-sm font-bold text-[#123D73]">
+                      Tanza Water District
+                    </p>
+
+                    <p className="mt-1 text-sm leading-6 text-slate-600">
+                      Tanza, Cavite, Philippines
+                    </p>
+
+                    <p className="mt-2 text-xs leading-5 text-slate-500">
+                      Official Facebook Page: https://www.facebook.com/tanzawaterdistrict
+                    </p>
+                    <p className="mt-2 text-xs leading-5 text-slate-500">
+                      Contact Number: (046) 484 1813
+                    </p>
+                    <p className="mt-2 text-xs leading-5 text-slate-500">
+                      Email: tanza_wd@yahoo.com
                     </p>
                   </div>
 
@@ -1201,7 +1132,7 @@ export default function SignupPage() {
                   <button
                     type="button"
                     onClick={() => setShowPrivacyInfo(false)}
-                    className="rounded-lg bg-[#123D73] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0d2f5a]"
+                    className="cursor-pointer rounded-lg bg-[#123D73] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0d2f5a]"
                   >
                     Close
                   </button>
@@ -1210,7 +1141,7 @@ export default function SignupPage() {
               </div>
             </div>
           )}
-//#endregion
+
     </div>
   );
 }

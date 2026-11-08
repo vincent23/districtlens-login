@@ -32,13 +32,32 @@ export default function ForgotPasswordPage() {
     <main className="flex min-h-dvh w-full items-center justify-center bg-[#F3F6FB] px-4 py-8">
 
       {/* MAIN CARD */}
-      <div className="w-full max-w-[542px] border border-slate-200 bg-white px-6 py-10 shadow-[0_20px_50px_rgba(15,42,92,0.10)] sm:px-10 sm:py-12">
-
+      <div className="relative w-full max-w-[542px] border border-slate-200 bg-white px-6 py-10 shadow-[0_20px_50px_rgba(15,42,92,0.10)] sm:px-10 sm:py-12">        
+        
         {/* BRANDING */}
-        <div className="mb-9 flex flex-col items-center">
-
+        <div className="mb-9 mt-10 flex flex-col items-center">
           {/* LOGO AND TITLE */}
           <div className="flex items-center justify-center gap-4">
+            {/* BACK BUTTON */}
+            <Link
+              href="/"
+              className="absolute left-4 top-4 z-20 flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-[#123D73] transition hover:bg-[#123D73]/10 sm:left-5 sm:top-5"
+            >
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+              Back
+            </Link>
 
             {/* LOGO */}
             <div className="relative h-20 w-20 shrink-0">
@@ -173,18 +192,6 @@ export default function ForgotPasswordPage() {
           Reset links are time-limited and may only be used once.
           Repeated requests may be temporarily limited.
         </p>
-
-        {/* BACK TO LOGIN */}
-        <div className="mt-6 text-center">
-
-          <Link
-            href="/"
-            className="text-sm font-semibold text-[#123D73] transition hover:text-[#00A6D6] hover:underline"
-          >
-            Back to Login
-          </Link>
-
-        </div>
 
       </div>
 
