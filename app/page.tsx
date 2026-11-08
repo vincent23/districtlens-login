@@ -48,7 +48,7 @@ export default function AdminLogin() {
       {/* HEADER */}
       {/* ================================================== */}
 
-      <header className="h-[72px] w-full border-b border-slate-200 px-6 sm:px-10">
+      <header className="sticky top-0 z-50 bg-white h-[72px] w-full border-b border-slate-200 px-6 sm:px-10">
 
         <div className="mx-auto flex h-full w-full max-w-[1700px] items-center px-4 sm:px-6 lg:px-8">
 
